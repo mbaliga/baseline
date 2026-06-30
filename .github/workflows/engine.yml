@@ -1,0 +1,28 @@
+name: engine
+
+on:
+  push:
+    paths:
+      - "engine/**"
+      - ".github/workflows/engine.yml"
+  pull_request:
+    paths:
+      - "engine/**"
+      - ".github/workflows/engine.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: engine
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Test
+        run: ./gradlew test --no-daemon
+      - name: Publish engine artifact to mavenLocal (smoke check)
+        run: ./gradlew publishToMavenLocal --no-daemon

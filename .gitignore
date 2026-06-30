@@ -24,6 +24,12 @@ node_modules/
 dist/
 build/
 
+# Gradle / Kotlin (the Baseline engine module)
+.gradle/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+local.properties
+
 # OS junk
 .DS_Store
 Thumbs.db

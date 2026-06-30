@@ -1,5 +1,12 @@
 # Baseline
 
+> **Two things share this repo.** (1) The original **MW75 EEG state-estimator** (described
+> below). (2) The **sport-agnostic Baseline engine** in [`engine/`](engine/) — the
+> generalization of the same loop (signal → personal baseline → deviation → fatigue →
+> feedback) to body/equipment motion, which powers the **Form Analyser** archery app (separate
+> repo). See [`docs/athlete_platform.md`](docs/athlete_platform.md) for how the pieces fit and
+> what goes where. EEG returns to the engine later as one optional mental-state channel.
+
 **A personal state estimator with ambient, adaptive, and metacognitive surfaces.**
 
 Baseline uses consumer-grade EEG (the Master & Dynamic MW75 Neuro — 12-channel temporal-site, dry-electrode) together with optional multimodal sensors (voice, face, HRV) to model one user's "normal" cognitive and affective state, detect meaningful deviations from that normal, and drive interventions in response. Its cultural anchor is the *Blade Runner 2049* post-traumatic baseline test — here deliberately inverted from an instrument of institutional control into a self-administered tool for self-knowledge, self-regulation, and, optionally, communication with the user's own clinician.
