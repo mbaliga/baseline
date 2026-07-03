@@ -1,0 +1,11 @@
+Copyright (c) 2026 A System of Cells / mdhv.xyz. All rights reserved.
+
+This module (:core:baseline) is proprietary and is NOT covered by the
+Apache-2.0 license that applies to the rest of this repository's open
+modules. No permission is granted to use, copy, modify, or distribute
+this module's source or binaries except as part of official builds of
+A System of Cells applications.
+
+The public contract this module implements (TrendAnalyzer / TrendReport
+in :core:model) is Apache-2.0; independent reimplementations against
+that interface are welcome.
