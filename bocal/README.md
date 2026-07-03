@@ -38,6 +38,7 @@ This directory is a **self-contained Gradle project** living inside the
 | `:core:timbre` | Apache-2.0 | FFT, spectral centroid, tristimulus, odd/even ratio, tone-steadiness |
 | `:core:baseline` | **Proprietary** | Longitudinal trend engine (shared with the archery app) |
 | `:core:data` | Apache-2.0 | `.bocalbundle` session interchange (versioned JSON + audio in zip) |
+| `:core:session` | Apache-2.0 | Analysis vertical: held-note tracking, session metrics + score, intonation tendency maps, humane streaks, offline summaries |
 | `:core:hyle` | Apache-2.0 | Hyle tokens + the colorblind `StateEncoding` contract |
 | `:core:haptics` | Apache-2.0 | Haptics IR (the cross-app authoring contract) + tuner feedback planner |
 | `:core:audio` | Apache-2.0 | `AudioEngine` seam; AudioRecord engine today, Oboe next |
@@ -45,16 +46,27 @@ This directory is a **self-contained Gradle project** living inside the
 | `:app` | Apache-2.0 | Composition root; manifest; the no-INTERNET build guard |
 | `:test-fixtures` | Apache-2.0 | Synthetic sine/saw/harmonic generators, WAV writer |
 
+The analysis layer wires the tuner to the trend engine: `NoteHoldTracker`
+turns live pitch readings into `NoteAttempt`s, `SessionAnalyzer` scores a
+session (higher = more accurate) for `:core:baseline`, `IntonationTendencyMap`
+gives the per-note sharp/flat bias, `StreakCalculator` implements a humane
+"never miss twice" streak (one missed day is forgiven — rigid streaks
+backfire), and `TemplateSummaryProvider` is the offline default behind the
+`SummaryProvider` seam (the Urbana slot; nothing here needs the network). Reed
+rotation/retirement lives in `:core:model`'s `equipment` package.
+
 Planned next: `:core:pitch-neural` (SwiftF0/ONNX, MIT — the noisy-room
-accuracy engine; falls back to DSP above ~2093 Hz), `:feature:journal`,
-`:feature:equipment`, Room storage in `:core:data`, Oboe capture engine.
+accuracy engine; falls back to DSP above ~2093 Hz), `:feature:journal` and
+`:feature:equipment` UIs over these engines, Room storage in `:core:data`,
+Oboe capture engine.
 
 ## Building
 
 ```sh
 # Tier 1 — headless JVM tests (run these on every save):
 ./gradlew :core:model:test :core:pitch:test :core:timbre:test \
-          :core:baseline:test :core:data:test :core:hyle:test :core:haptics:test
+          :core:baseline:test :core:data:test :core:session:test \
+          :core:hyle:test :core:haptics:test
 
 # Everything, including Android unit tests:
 ./gradlew test

@@ -39,6 +39,7 @@ include(":core:pitch")
 include(":core:timbre")
 include(":core:baseline") // CLOSED (proprietary) — see core/baseline/LICENSE
 include(":core:data")
+include(":core:session")
 include(":core:hyle")
 include(":core:haptics")
 include(":test-fixtures")
