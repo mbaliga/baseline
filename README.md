@@ -1,7 +1,7 @@
 # Baseline
 
-> **Constellation** · `state: seeded` · private · [registry: `Personal-Tracker/CONSTELLATION.md`](https://github.com/mbaliga/Personal-Tracker/blob/main/CONSTELLATION.md)
-> EEG personal-state estimation → ambient / adaptive-music / metacognitive-probe interventions (all local). **Owns the product name "Baseline"** (the Form-analyser sport engine was renamed to `crocodyl.engine` to free it).
+> **Constellation** · `state: seeded` · private · **proprietary** · [registry: `Personal-Tracker/CONSTELLATION.md`](https://github.com/mbaliga/Personal-Tracker/blob/main/CONSTELLATION.md)
+> **Baseline is the proprietary deviation-from-optimum + state-inference engine (D-S).** It is the licensable core across the constellation — the open apps *license* it: the EEG app is **[Ebbflow](https://github.com/mbaliga/Ebbflow)**, the archery/sports app is **[Crocodyl](https://github.com/mbaliga/Form-analyser)**; the MW75 streaming layer is **[mw75-streamer](https://github.com/mbaliga/mw75-streamer)**. What stays *here* is the engine (EEG parse + `FocusEstimator` + the sensing/deviation core, i.e. `core-eeg`/`core`/`data`). The EEG *app* that used to live here moved to Ebbflow (2026-07-06). **D-S supersedes D-F** — "Baseline" now names the engine, not the whole product, and this repo is closed, not open-source.
 
 **A personal state estimator with ambient, adaptive, and metacognitive surfaces.**
 
@@ -9,10 +9,10 @@ Baseline uses consumer-grade EEG (the Master & Dynamic MW75 Neuro — 12-channel
 
 The system is built as one **shared sensing core** (streaming → feature extraction → contextual baselines → deviation scoring → a discrete state estimate) feeding three **independent surfaces**, each with its own risk profile, evaluation method, and development timeline: an **ambient controller** that lets the environment *follow* the user's state (lights, switches, desktop, do-not-disturb — low risk), an **adaptive music controller** that *modulates* state toward baseline (higher risk, opt-in), and a **metacognitive instrument** that runs standardised daily probes for longitudinal self-review and optional therapist export (slow cadence, high care). Because the surfaces are separate consumers of the core's output, each can be developed, evaluated, and published on its own.
 
-This is a single-subject (N=1) longitudinal study run with phased ABA single-case designs per surface. It is **local-first** — all data stays on the user's own machines, encrypted at rest, with no cloud sync — and **open-source**, including the Linux daemon, the Android app, and a contributed Linux port of the upstream `arctop/mw75-streamer`. See **[`research_brief.md`](research_brief.md)** for the full design, scientific grounding, and ethics, and **[`build_plan.md`](build_plan.md)** for the sequenced engineering plan.
+This is a single-subject (N=1) longitudinal study run with phased ABA single-case designs per surface. It is **local-first** — all data stays on the user's own machines, encrypted at rest, with no cloud sync. Per **D-S** the engine in *this* repo is **proprietary** (closed); the open pieces live in their own repos — the EEG **app** is [Ebbflow](https://github.com/mbaliga/Ebbflow), and the MW75 **streamer** (including the contributed Linux port of upstream `arctop/mw75-streamer`) is [mw75-streamer](https://github.com/mbaliga/mw75-streamer). See **[`research_brief.md`](research_brief.md)** for the full design, scientific grounding, and ethics, and **[`build_plan.md`](build_plan.md)** for the sequenced engineering plan (both still carry the pre-D-S whole-product framing — to be split).
 
 ## Do not touch
 
-- This repo (the EEG product) **owns the name "Baseline"** (decision D-F).
+- This repo is the **Baseline engine** — **proprietary/closed** (D-S supersedes D-F). "Baseline" names the *engine*, not the whole EEG product; that app is **Ebbflow**. Do not re-open-source this repo or re-add the app here.
 - The `streamer-*` modules are **scaffolds, not real yet** — Phase 1 forks/ports `mw75-streamer` (the canonical streamer); don't re-implement packet parsing here.
 - All processing is **local** — no cloud sync (binding invariant).
