@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BACKENDLESS: deliberately NO android.permission.INTERNET, ever.
+     The checkNoInternetPermission Gradle task enforces this on the merged
+     manifest so a dependency can't sneak it in. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Some debug-only dependencies (Compose ui-tooling) declare INTERNET in
+         their own manifests. Strip it at merge time, in every variant. -->
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        tools:node="remove" />
+
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="true" />
+
+    <application
+        android:label="Bocal"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Bocal">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
