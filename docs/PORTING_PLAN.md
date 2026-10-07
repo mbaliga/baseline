@@ -396,3 +396,53 @@ Measured with: `find . -name '*.kt' -not -path './.git/*' | xargs wc -l`; `grep 
 `git ls-files | wc -l`; `git ls-files | grep -P '[:<>|?*"]'`; a grep of production sources for
 `System.|Random|Locale|java.|javax.|Instant|Clock|File|Thread|Charset|format(`; a grep for `dev.baseline` in
 Ebbflow, Form-analyser and Shared-Libraries-asoc. Nothing was built and no Gradle task was run.
+
+## Owner rulings and the proposed line (added 2026-10-07)
+
+Status: PLAN. Nothing here is built, run on a device, signed or submitted. The program-level plan is Personal-Tracker `PORTING_PROGRAM.md` ([PR #10](https://github.com/mbaliga/Personal-Tracker/pull/10)), which holds the owner's rulings and section 5A, the proposed port / no-port line. The cells, estimates and open questions above are this repo's original plan and are unedited. Where the owner has since answered a question, the answer is below. Section 5A is a proposal; the owner has not yet confirmed it.
+
+### Where baseline sits in the proposed line (program section 5A.3, a proposal)
+
+| Target       | Verdict | Weeks and flags |
+| ------------ | ------- | --------------- |
+| Ubuntu Touch | no-port | -               |
+| Linux        | exists  | 0.5w            |
+| iOS/iPadOS   | follows | 1.5w            |
+| macOS        | exists  | 0.5w            |
+| Windows      | exists  | 0.5w            |
+
+Key: `follows` means it ports only as far as the products that depend on it; `exists` means the program reads it as already running there, unverified (finish, verify and sign); flags: `g` gated on a prerequisite, `r` re-estimate or floor, `o` its own program, `s` scope note. The program's P4, P8, P12 and P13 gate whole columns or repos and are not flagged per cell. A port verdict counts the deliverable in the line; where this repo's plan calls a deliverable a reframe (program rule R12) it keeps that label. Tests cited in the reason: (a) the owner said it is needed there; (b) its job is really done on that OS by real users; (c) that OS is where it is sold or its audience is; it has no reason to exist if (x) its surface is absent or untouchable, (y) the capability is forbidden or impossible, or (z) the only form is a thin wrapper or a different product nobody asked for. P-numbers and OQ-numbers refer to the program plan (Personal-Tracker `PORTING_PROGRAM.md`, sections 5A.5 and 8).
+
+Reason: An engine with no UI and no job of its own: it follows its consumers (Crocodyl iOS) and builds on the JVM where it already does. A linuxArm64 library on UT would serve no one.
+
+### Owner rulings that apply here
+
+- **OQ-17 toolchain (2026-10-06):** "B: staged pin (Recommended)": Kotlin 2.1.20 and Compose Multiplatform 1.8.2 for the first wave, 2.4.x deferred. baseline is on Kotlin 2.1.0 and uses no Compose, so only the Kotlin part of the pin applies and the move to 2.1.20 is a bump the plan leaves to OQ-17 (step K1); it is outside the PT:D-Q Hyle lockstep.
+- **OQ-38 iOS pin (2026-10-07):** "Move iOS to Kotlin 2.2.21 + CMP 1.9.3 (Recommended)", with the first iOS proof on an explicitly selected Xcode 26.x. The program plan reads this as moving a repo that ships an iOS target as a whole (a Gradle build has one Kotlin version); that reading is not researched, and the bump cost for repos pinned lower is in no figure. baseline's Kotlin 2.1.0 is below the iOS pin; the bump cost is in no figure. The Compose Multiplatform half of the pin does not apply: baseline has no UI.
+- **OQ-20 CI (2026-10-06):** "Linux-only CI when private (Recommended)": this repo is private, so macOS and Windows lanes do not run while it stays private (an owner Mac is a third route for Apple builds).
+- **OQ-31 Mac (2026-10-06 and 2026-10-07):** "Buy a Mac", and on 2026-10-07 an Apple-silicon Mac mini, not yet bought; no Apple device gate is called checkable before then.
+- **OQ-5 hardware (2026-10-06):** the owner has a Dell, a Windows desktop and an HP laptop; the Steam Deck is no longer a dependency for now. Which machine carries which device gate is not decided (OQ-33). The plan's note that the Dell is slated for Linux is superseded; whether the Dell homelab plan stands, which names baseline, is open under OQ-33.
+- **Directives (2026-10-06):** "Draft amendments for approval": program directives I-1 to I-12 and rules R1 to R12 are unchanged; PROPOSED-1 to PROPOSED-4 in Personal-Tracker `DECISIONS.md` are drafts awaiting the owner.
+
+### Prerequisites and open questions that touch this repo (program sections 5A.5 and 8)
+
+Prerequisites (program-level; not costed here):
+
+- program P2: Crocodyl's restructure into :core, :ui and :desktop with expect/actual seams (about 6 weeks, carried by Crocodyl Linux); the program lists Baseline iOS as waiting on it
+- program P8: An Apple-silicon Mac (OQ-31: a Mac mini chosen on 2026-10-07, not yet bought)
+- program P12: The iOS toolchain pin (OQ-38, ruled 2026-10-07): baseline's Kotlin 2.1.0 is below the iOS pin, Kotlin 2.2.21 (the Compose Multiplatform half does not apply); the bump cost is in no figure
+- program P13: OQ-12: the README's Community and Advanced split against PT:D-S 'proprietary'
+
+Owner questions in the program register that concern this repo (status as of 2026-10-07):
+
+- OQ-5 (ruled): Hardware stance (names baseline in the Dell homelab-server plan; plan Q6)
+- OQ-12 (open): Licences for repos without a LICENSE
+- OQ-17 (ruled): Toolchain pins: the pin is ruled; the "Also" approvals (converting shared modules to kotlin("multiplatform"), asom's no-KMP rule staying asom-local) are unanswered
+- OQ-20 (ruled): CI minutes, storage and repo visibility
+- OQ-24 (open): Sharing mechanism for non-Gradle artefacts and prebuilt binaries
+- OQ-25 (open): Identifier registry
+- OQ-31 (ruled): CI for App Store builds; which Mac
+- OQ-33 (open): Hardware details still open
+- OQ-38 (ruled): iOS toolchain pin
+
+When the owner confirms or changes the line, this repo's original cells above stay as the engineering detail; only the verdicts and re-costs in program section 5A change.
