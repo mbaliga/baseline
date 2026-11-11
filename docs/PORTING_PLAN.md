@@ -270,6 +270,12 @@ its cost and network profile do not change (R2, R3). The new workflows pass the 
 - **W3 decision record, 0.1w.** `mingwX64` is not added (Tier 3 in Kotlin/Native; no consumer). Revisit only
   if a Windows-native consumer appears.
 
+Wave 3 status (2026-11-11): W1 is now `tools/lint_tracked_paths.py` (0 offending paths at HEAD; a temporary
+`a:b` file was flagged). W2 is drafted as `.github/workflows/windows.yml` (manual dispatch, no artifact), but it
+runs `gradle test` via `setup-gradle` like `ci.yml` because `gradlew.bat` is still not committed (the L1
+remainder is not done), and it has never run: `CI-ONLY / NOT RUN`. W3 is recorded above: `mingwX64` is not added.
+The Linux L2 remainder is `ClassFileVersionTest` in each module (asserts class-file major 61), `CONTAINER-BUILD-ONLY`.
+
 ### Ubuntu Touch (2w = UT1 0.3 + UT2 1.2 + UT3 0.5, gated; route 2 only)
 
 - **UT0 gate, 0w.** No work until OQ-1 is answered or a CI-only waiver is recorded, the S-UT1 verdict exists
