@@ -1,0 +1,33 @@
+name: Windows
+
+# Manual dispatch only: Windows runners bill at a multiple on a private repo (OQ-20).
+# Evidence from this lane is CI (hosted VM). It has never been run.
+on:
+  workflow_dispatch:
+
+# TODO(R3): actions below use version tags, not SHA pins (SHAs could not be looked up offline).
+# Pin them before this lane is ever dispatched.
+permissions:
+  contents: read
+
+jobs:
+  windows-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tracked-path lint (R3)
+        run: python tools/lint_tracked_paths.py
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      # Uses the provisioned Gradle exactly as ci.yml does, so no gradlew.bat is needed yet (L1 remainder).
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.14.3"
+          cache-read-only: true
+      - run: gradle test --no-daemon --console=plain
+      # No artifact upload (R6).
