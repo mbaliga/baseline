@@ -23,3 +23,5 @@ export, retraction, or athlete history.
 
 See [`ARCHITECTURE_V2.md`](ARCHITECTURE_V2.md) and
 [`docs/PR_DISPOSITION.md`](docs/PR_DISPOSITION.md).
+
+Multi-platform porting plan (a plan; nothing is built): [`docs/PORTING_PLAN.md`](docs/PORTING_PLAN.md).
